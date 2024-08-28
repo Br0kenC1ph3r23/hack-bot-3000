@@ -14,7 +14,7 @@ login_manager.login_view = 'login'
 
 # User database simulation
 users = {
-    'CipherBre4ker': '0ld-Fa1thful-P@ssw0rd'
+    'CipherBre4ker': <redacted>
 }
 
 # User class
