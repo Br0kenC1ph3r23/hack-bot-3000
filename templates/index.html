@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Hack Bot 3000</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            background-color: #333;
+            border: none;
+            color: #0f0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        #messages {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 Hack Bot Goes Brrrr!</h1>
+    <button onclick="startHacking()">Start Hacking</button>
+    <a href="/logout"><button>Logout</button></a>
+    <div id="messages"></div>
+    <script>
+        function startHacking() {
+            fetch('/start')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.status);
+                    updateMessages();
+                });
+        }
+
+        function updateMessages() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    let messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = '';
+                    if (data.running) {
+                        data.messages.forEach(msg => {
+                            let p = document.createElement('p');
+                            p.textContent = msg;
+                            messagesDiv.appendChild(p);
+                        });
+                    } else {
+                        messagesDiv.innerHTML = 'Hacking Complete';
+                    }
+                });
+        }
+
+        setInterval(updateMessages, 1000); // Update messages every second
+    </script>
+</body>
+</html>
